@@ -42,4 +42,11 @@ def get_synonyms(word):
 
 # creamos la aplicacion FastAPI, que será el motor de nuestra API
 # esto inicializa la API con una versión
+app = FastAPI(title='Mi aplicación de películas', version='1.0.0')
+
+@app.get('/', tags=['Home'])
+def home():
+    # Cuando entremos en el navegador a http://127.0.0.1:8000 veremos un mensaje de bienvenida
+    return HTMLResponse('<h1> Bienvenido a la API de películas </h1>')
+
 
