@@ -49,4 +49,16 @@ def home():
     # Cuando entremos en el navegador a http://127.0.0.1:8000 veremos un mensaje de bienvenida
     return HTMLResponse('<h1> Bienvenido a la API de películas </h1>')
 
+# Obteniendo la lista de peliculas
+# Creamos una ruta pa obtener todas las peliculas
+# Ruta para obtener todas las peliculas disponibles
+@app.get('/movies', tags=['Movies'])
+def get_movies():
+    # si hay peliculas, las enviamos , si no,  un error
+    return movies_list or HTMLResponse(status_code=500, detail="No hay datos de películas disponibles")
 
+# Ruta para obtener una pelicula especifica por su ID
+@app.get('/movies/{id}', tags=['Movies'])
+def get_movies(id: str):
+    # Buscamos en la lista de peliculas la que tenga el mismo ID
+    return next((m for m in movies_list if m ['id']== id), {"detalle":"película no encontrada"})
