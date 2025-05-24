@@ -76,8 +76,13 @@ def chatbot(query: str):
     results = [m for m in movies_list if any (s in m ['category'].lower() for s in synonyms)]
 
     # Si encontramos las películas, enviamos la lista de películas; sino, mostramos un mensaje de que no se encontraron coincidencias
-
     return JSONResponse (content={
-        "respuesta": "aqui tienes algunas peliculas relacionadas." if results else "no encontré películas en esa categoría.",
-        "películas": results 
-        })
+    "respuesta": "aqui tienes algunas peliculas relacionadas." if results else "no encontré películas en esa categoría.",
+    "películas": results 
+    })
+# Ruta para buscar películas por categoría específica
+@app.get ('/movies/by_category/', tags=['Movies'])
+def get_movies_by_category(category: str):
+    # Filtramos la lista de películas según la categoría ingresada
+    return [m for m in movies_list if category.lower() in m['category'].lower()]
+
